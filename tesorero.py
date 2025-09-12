@@ -5,10 +5,12 @@ class Item:
     self.price = price
     self.quantity = quantity
 
+  #deposit item quantity
   def deposit_quantity(self, amount):
     self.quantity += amount
     print(f"Added {amount} to {self.name}")
 
+  #withdraw item quantity
   def withdraw_quantity (self, amount):
 
     if amount > self.quantity:
@@ -20,11 +22,13 @@ class Item:
   
   def total_value(self):
     return self.price * self.quantity
-  
+
+#Inventory class
 class Inventory:
   def __init__(self):
     self.items = []
 
+  #add set of items
   def add_item(self):
     name = input("Enter item name: ")
     price = float(input("Enter item price: "))
@@ -33,12 +37,15 @@ class Inventory:
     self.items.append(item)
     print(f"Item {item.item} added to inventory.")
   
+  #remove set of items
   def remove_item(self):
 
+    #check if inventory is empty
     if len(self.items) == 0:
       print("Inventory is empty.")
       return
     
+    #display inventory for the user to choose from
     print("<---------Inventory---------->")
     for i in range(len(self.items)):
       print(f"{i+1}. {self.items[i].item} - Price: {self.items[i].price} - Quantity: {self.items[i].quantity}")
@@ -47,10 +54,12 @@ class Inventory:
 
     choice = int(input("Enter item number to remove on inventory: "))
 
+    #check if choice is valid
     if choice < 1 or choice > len(self.items):
       print("Invalid choice.")
       return
     
+    #remove specific item from inventory
     del self.items[choice - 1]
     print("Item removed from inventory.")
 
@@ -63,19 +72,24 @@ class Inventory:
       print(f"{i+1}. {self.items[i].item} - Price: {self.items[i].price} - Quantity: {self.items[i].quantity}")
     print("<---------------------------->")
 
+  #view inventory
   def view_inventory(self):
+
+    #check if inventory is empty
     if len(self.items) == 0:
       print("Inventory is empty.")
       return
     
+    #display inventory
     print("<---------Inventory---------->")
     for i in range(len(self.items)):
       print(f"{i+1}. {self.items[i].item} - Price: {self.items[i].price} - Quantity: {self.items[i].quantity}")
     self.total_inventory_value()
     print("<---------------------------->")
 
-
+  #total inventory value
   def total_inventory_value(self):
+    #
     if len(self.items) == 0:
       print("Total inventory value: PHP 0")
       return
@@ -96,6 +110,7 @@ while True:
 
   ch = int(input("Enter your choice: "))
 
+  #Each choices corresponds to different function from Inventory class
   if ch == 1:
     inventory.add_item()
   elif ch == 2:
@@ -126,6 +141,7 @@ while True:
         print("Invalid choice.")
         continue
       amount = int(input("Enter amount to deposit: "))
+      #access specific item and call deposit_quantity method
       inventory.items[item - 1].deposit_quantity(amount)
 
     elif ch1 == 2:
@@ -134,6 +150,7 @@ while True:
         print("Invalid choice.")
         continue
       amount = int(input("Enter amount to withdraw: "))
+      #access specific item and call withdraw_quantity method
       inventory.items[item - 1].withdraw_quantity(amount)
 
     elif ch == 0:
